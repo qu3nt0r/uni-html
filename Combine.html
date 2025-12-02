@@ -1,0 +1,419 @@
+<!--Combine these elements into one website using BS5 and deploy the site
+Navbar
+Carousel
+Modal
+Cards
+Forms
+Alerts
+Jumbotron
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous"></head>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#navbar">BS5 Components</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#carousel">Carousel</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#modal">Modal</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#cards">Cards</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#forms">Forms</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#alerts">Alerts</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#jumbotron">Jumbotron</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar (hidden on small screens) -->
+            <nav id="sidebar" class="col-md-3 col-lg-2 d-none d-md-block bg-light sidebar">
+                <div class="position-sticky pt-3" style="top:0;">
+                    <h6 class="px-3">Sections</h6>
+                    <ul class="nav flex-column">
+                        <li class="nav-item"><a class="nav-link" href="#jumbotron">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#overview">Overview</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#carousel">Carousel</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#modal">Modal</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#cards">Cards</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#forms">Forms</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#alerts">Alerts</a></li>
+                    </ul>
+
+                    <hr>
+
+                    <h6 class="px-3">Quick Links</h6>
+                    <ul class="nav flex-column mb-3">
+                        <li class="nav-item"><a class="nav-link" href="#exampleModal" data-bs-toggle="modal">Open Modal</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#cards">Card Grid</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#forms">Contact Form</a></li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Main content -->
+            <main class="col-12 col-md-9 ms-sm-auto col-lg-10 px-4">
+                <!-- Jumbotron -->
+                <div id="jumbotron" class="bg-light py-5">
+                    <div class="container">
+                        <h1 class="display-4">Bootstrap 5 Components</h1>
+                        <p class="lead">A comprehensive guide to essential Bootstrap components with live examples.</p>
+                    </div>
+                </div>
+
+                <!-- Bootstrap 5 Overview Section -->
+                <section id="overview" class="py-5 bg-light">
+                    <div class="container">
+                        <h2>Bootstrap 5 Overview</h2>
+                        <p>Bootstrap 5 is a free, open-source front-end framework that provides pre-built CSS classes and JavaScript components to help you build responsive, modern websites quickly.</p>
+                        
+                        <h3>Key Concepts</h3>
+                        
+                        <h4>What It Does</h4>
+                        <p>Bootstrap gives you a toolkit of ready-made styles and interactive components so you don't have to write everything from scratch. Think of it as a collection of LEGO blocks for web design.</p>
+                        
+                        <h4>Responsive Design</h4>
+                        <p>Your code uses Bootstrap's grid system (the col-md-4 classes in your cards section). This automatically adjusts your layout based on screen size—your 3-column card layout becomes single-column on phones, maintaining usability across all devices.</p>
+                        
+                        <h4>Component Library</h4>
+                        <p>Your HTML showcases several Bootstrap components:</p>
+                        <ul>
+                            <li><strong>Navbar:</strong> Navigation bar with collapsible menu (try resizing your browser)</li>
+                            <li><strong>Carousel:</strong> Image slider with automatic transitions</li>
+                            <li><strong>Modal:</strong> Pop-up dialog that appears without page reload</li>
+                            <li><strong>Cards:</strong> Flexible content containers</li>
+                            <li><strong>Forms:</strong> Styled input fields and buttons</li>
+                            <li><strong>Alerts:</strong> Pre-styled notification boxes</li>
+                        </ul>
+                        
+                        <h4>Utility Classes</h4>
+                        <p>Classes like py-5 (padding vertical), bg-light (light background), and d-block (display block) apply styling instantly—no custom CSS needed.</p>
+                        
+                        <h4>JavaScript Integration</h4>
+                        <p>Bootstrap includes built-in JavaScript for interactive features. Your carousel auto-rotates, the modal opens/closes, and the navbar collapses on mobile—all handled automatically through data-bs-* attributes.</p>
+                        
+                        <h4>Why Use It?</h4>
+                        <ul>
+                            <li>✅ Saves development time</li>
+                            <li>✅ Ensures consistent, professional appearance</li>
+                            <li>✅ Handles responsive design automatically</li>
+                            <li>✅ Large community support and documentation</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Section Divider -->
+                <div class="container md-4 bg-secondary py-3 rounded my-3">
+                    <div class="container">
+                        <p class="text-white mb-0">Explore our Bootstrap 5 components below</p>
+                    </div>
+                </div>
+
+                <!-- Carousel -->
+                <section id="carousel" class="py-5">
+                    <div class="container">
+                        <h2>Carousel - Image Slider</h2>
+
+                        <div class="card p-3 mb-4">
+                            <h3>Component/Section Documentation</h3>
+                            <p><strong>Title:</strong> Carousel</p>
+                            <p><strong>Purpose:</strong> Displays a rotating set of images or content. Useful for showcasing multiple highlights without using extra vertical space.</p>
+
+                            <h5>Behavior & Usage</h5>
+                            <ul>
+                                <li>The carousel auto-rotates if <code>data-bs-ride="carousel"</code> is set.</li>
+                                <li>Controls and indicators allow manual navigation.</li>
+                                <li>Ensure images are similar aspect ratio for consistent layout.</li>
+                            </ul>
+
+                            <h5>Accessibility</h5>
+                            <ul>
+                                <li>Add descriptive <code>alt</code> text to images for screen readers.</li>
+                                <li>Consider pausing auto-rotation for long content or provide user controls.</li>
+                            </ul>
+
+                            <h5>Example markup</h5>
+                            <pre><code>&lt;div id="carouselExample" class="carousel slide" data-bs-ride="carousel"&gt;
+                &lt;div class="carousel-inner"&gt;
+                    &lt;div class="carousel-item active"&gt;
+                    &lt;img src="..." class="d-block w-100" alt="Description"&gt;
+                    &lt;/div&gt;
+                    &lt;!-- more items --&gt;
+                &lt;/div&gt;
+                &lt;button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev"&gt;&lt;span class="carousel-control-prev-icon"&gt;&lt;/span&gt;&lt;/button&gt;
+                &lt;button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next"&gt;&lt;span class="carousel-control-next-icon"&gt;&lt;/span&gt;&lt;/button&gt;
+                </code></pre>
+                        </div>
+
+                            <div id="carouselExample" class="carousel slide mb-4" data-bs-ride="carousel">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active"><img src="https://cdn.pixabay.com/photo/2014/10/15/19/20/notre-dame-490222_1280.jpg" class="d-block w-100" alt="Notre Dame"></div>
+                                    <div class="carousel-item"><img src="https://cdn.pixabay.com/photo/2019/07/14/08/08/night-4336403_1280.jpg" class="d-block w-100" alt="City night"></div>
+                                </div>
+                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span></button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next"><span class="carousel-control-next-icon"></span></button>
+                            </div>
+                        </div>
+                    </section>
+
+                <!-- Modal -->
+                <section id="modal" class="py-5 bg-light">
+                    <div class="container">
+                        <h2>Modal - Dialog Box</h2>
+
+                        <div class="card p-3 mb-4">
+                            <h3>Component/Section Documentation</h3>
+                            <p><strong>Title:</strong> Modal</p>
+                            <p><strong>Purpose:</strong> Presents a dialog overlay for user actions such as confirmation, forms, or important messages without navigating away from the current page.</p>
+
+                            <h5>Behavior & Usage</h5>
+                            <ul>
+                                <li>Open via <code>data-bs-toggle="modal"</code> and <code>data-bs-target="#modalId"</code> or JavaScript APIs.</li>
+                                <li>Use appropriate buttons for actions (e.g., Save, Cancel).</li>
+                            </ul>
+
+                            <h5>Accessibility</h5>
+                            <ul>
+                                <li>Give the modal a clear title with <code>.modal-title</code> and ensure focus management (Bootstrap handles most automatically).</li>
+                                <li>Include <code>aria-label</code> on close buttons where needed.</li>
+                            </ul>
+
+                            <h5>Example markup</h5>
+                            <pre><code>&lt;button data-bs-toggle="modal" data-bs-target="#exampleModal"&gt;Open Modal&lt;/button&gt;
+
+                &lt;div class="modal fade" id="exampleModal" tabindex="-1"&gt;
+                &lt;div class="modal-dialog"&gt;
+                    &lt;div class="modal-content"&gt;
+                    &lt;div class="modal-header"&gt;&lt;h5 class="modal-title"&gt;Title&lt;/h5&gt;&lt;button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"&gt;&lt;/button&gt;&lt;/div&gt;
+                    &lt;div class="modal-body"&gt;Content&lt;/div&gt;
+                    &lt;div class="modal-footer"&gt;&lt;button class="btn btn-secondary" data-bs-dismiss="modal"&gt;Close&lt;/button&gt;&lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;/div&gt;
+                </code></pre>
+                        </div>
+
+                        <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal">Open Modal</button>
+                        <div class="modal fade" id="exampleModal" tabindex="-1">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header"><h5 class="modal-title">Modal Title</h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
+                                    <div class="modal-body">Modal content goes here.</div>
+                                    <div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button><button type="button" class="btn btn-primary">Save</button></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Cards -->
+                <section id="cards" class="py-5">
+                    <div class="container">
+                        <h2>Cards - Content Containers</h2>
+
+                        <div class="card p-3 mb-4">
+                            <h3>Component/Section Documentation</h3>
+                            <p><strong>Title:</strong> Cards</p>
+                            <p><strong>Purpose:</strong> Flexible content containers for text, images, and actions. Great for presenting items in a grid or list.</p>
+
+                            <h5>Behavior & Usage</h5>
+                            <ul>
+                                <li>Combine <code>.card-img-top</code>, <code>.card-body</code>, and utility classes for layout.</li>
+                                <li>Use the grid system (<code>.row</code> and <code>.col-*</code>) to create responsive card layouts.</li>
+                            </ul>
+
+                            <h5>Example markup</h5>
+                                <pre><code>&lt;div class="card"&gt;
+                    &lt;img src="..." class="card-img-top" alt="..."&gt;
+                    &lt;div class="card-body"&gt;
+                        &lt;h5 class="card-title"&gt;Card Title&lt;/h5&gt;
+                        &lt;p class="card-text"&gt;Description&lt;/p&gt;
+                        &lt;a class="btn btn-primary" href="#"&gt;Learn More&lt;/a&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                </code></pre>
+                        </div>
+
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <div class="card">
+                                    <img src="https://cdn.pixabay.com/photo/2019/07/14/08/08/night-4336403_1280.jpg" class="card-img-top" alt="Night city">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Card Title</h5>
+                                        <p class="card-text">Card description here.</p>
+                                        <a href="#" class="btn btn-primary">Learn More</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="card">
+                                    <img src="https://cdn.pixabay.com/photo/2018/12/14/21/29/sunset-3875817_1280.jpg" class="card-img-top" alt="Sunset">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Card Title</h5>
+                                        <p class="card-text">Card description here.</p>
+                                        <a href="#" class="btn btn-primary">Learn More</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="card">
+                                    <img src="https://cdn.pixabay.com/photo/2017/04/08/10/42/burj-khalifa-2212978_1280.jpg" class="card-img-top" alt="Skyscraper">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Card Title</h5>
+                                        <p class="card-text">Card description here.</p>
+                                        <a href="#" class="btn btn-primary">Learn More</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Forms -->
+                <section id="forms" class="py-5 bg-light">
+                    <div class="container">
+                        <h2>Forms - User Input</h2>
+
+                        <div class="card p-3 mb-4">
+                            <h3>Component/Section Documentation</h3>
+                            <p><strong>Title:</strong> Forms</p>
+                            <p><strong>Purpose:</strong> Collect user input with accessible, styled form controls. Bootstrap provides layout utilities and validation styles.</p>
+
+                            <h5>Behavior & Usage</h5>
+                            <ul>
+                                <li>Use <code>.form-control</code>, <code>.form-label</code>, and spacing utilities for consistent layout.</li>
+                                <li>Leverage client-side validation classes like <code>.is-invalid</code> and <code>.is-valid</code> for feedback.</li>
+                            </ul>
+
+                            <h5>Accessibility</h5>
+                            <ul>
+                                <li>Associate labels with inputs using the <code>for</code> and <code>id</code> attributes.</li>
+                                <li>Use descriptive placeholder text and ARIA attributes when needed.</li>
+                            </ul>
+
+                            <h5>Example markup</h5>
+                            <pre><code>&lt;form&gt;
+                    &lt;label class="form-label" for="email"&gt;Email&lt;/label&gt;
+                    &lt;input id="email" type="email" class="form-control" placeholder="Enter email"&gt;
+                    &lt;!-- validation feedback markup --&gt;
+                &lt;/form&gt;
+                </code></pre>
+                        </div>
+
+                        <form>
+                            <div class="mb-3">
+                                <label for="emailInput" class="form-label">Email</label>
+                                <input id="emailInput" type="email" class="form-control" placeholder="Enter email" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="passwordInput" class="form-label">Password</label>
+                                <input id="passwordInput" type="password" class="form-control" placeholder="Enter password" required>
+                            </div>
+
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="check">
+                                <label class="form-check-label" for="check">Remember me</label>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </section>
+
+                <!-- Alerts -->
+                <section id="alerts" class="py-5">
+                    <div class="container">
+                        <h2>Alerts - Messages</h2>
+                        <div class="card p-3 mb-3">
+                            <h3>Component/Section Documentation</h3>
+                            <p><strong>Title:</strong> Alerts</p>
+                            <p><strong>Purpose:</strong> Describe the purpose of this section/component (what it renders and why). State where it is used in the application and any important invariants.</p>
+
+                            <h4>Bootstrap Alerts — Detailed Explanation</h4>
+                            <p><strong>What is an alert:</strong> Bootstrap "alerts" are a lightweight, flexible way to provide feedback messages to users (success, info, warning, danger, etc.). Alerts use the <code>.alert</code> base class plus a contextual class such as <code>.alert-success</code>, <code>.alert-warning</code>, <code>.alert-danger</code>, etc.</p>
+
+                            <p><strong>Structure & semantics:</strong></p>
+                            <ul>
+                                <li>Basic structure: <code>&lt;div class="alert alert-* " role="alert"&gt;Message&lt;/div&gt;</code></li>
+                                <li>The <code>role="alert"</code> attribute ensures assistive technologies announce the message immediately.</li>
+                            </ul>
+
+                            <p><strong>Dismissible alerts:</strong></p>
+                            <p>To make an alert dismissible add <code>.alert-dismissible</code> and include a close button with <code>data-bs-dismiss="alert"</code>. Optionally include <code>.fade</code> and <code>.show</code> for animation.</p>
+
+                            <h5>Accessibility</h5>
+                            <ul>
+                                <li>Include <code>role="alert"</code> for important live messages.</li>
+                                <li>Dismiss buttons should have accessible labels (e.g., <code>aria-label="Close"</code>).</li>
+                            </ul>
+
+                            <h5>Behavior notes</h5>
+                            <ul>
+                                <li>Alerts are presentational and do not persist across reloads.</li>
+                                <li>Use Bootstrap JS APIs for programmatic dismissal if needed.</li>
+                            </ul>
+
+                            <h4>Examples (code)</h4>
+                            <pre><code>&lt;div class="alert alert-success" role="alert"&gt;
+                    Success! Your action was completed.
+                &lt;/div&gt;
+
+                &lt;div class="alert alert-warning alert-dismissible fade show" role="alert"&gt;
+                    Warning: Check the entered information.
+                    &lt;button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"&gt;&lt;/button&gt;
+                &lt;/div&gt;
+
+                &lt;div class="alert alert-danger" role="alert"&gt;
+                    &lt;h4 class="alert-heading"&gt;Error&lt;/h4&gt;
+                    &lt;p&gt;There was a problem processing your request. Please try again later.&lt;/p&gt;
+                    &lt;hr&gt;
+                    &lt;p class="mb-0"&gt;If the problem persists, contact support.&lt;/p&gt;
+                &lt;/div&gt;
+                        </code></pre>
+
+                            <h4>Live examples</h4>
+                            <div class="mb-2">
+                                <div class="alert alert-success" role="alert">Success! Operation completed.</div>
+                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                    Warning! Please review your input.
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                                <div class="alert alert-danger" role="alert">
+                                    <h4 class="alert-heading">Error</h4>
+                                    <p>There was a problem processing your request. Please try again later.</p>
+                                    <hr>
+                                    <p class="mb-0">If the problem persists, contact support.</p>
+                                </div>
+                            </div>
+
+                            <h5>Implementation notes</h5>
+                            <ul>
+                                <li>Ensure Bootstrap CSS & JS are loaded for dismiss behavior to work.</li>
+                                <li>Prefer adding/removing alert elements in the DOM for accessibility.</li>
+                                <li>Centralize message text and severity in component state/props.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+            </main>            
+</body>
+</html>
