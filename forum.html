@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Forum | Coming Soon</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <style>
+        :root {
+            --p-700: #181E28;
+            --p-400: #6F82A1;
+            --s-100: #E3E7EF;
+            --g-700: #1D1E1F;
+        }
+
+        body {
+            background-color: var(--s-100);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: sans-serif;
+            padding: 20px;
+        }
+
+        .forum-card {
+            background: white;
+            width: 100%;
+            max-width: 650px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+
+        .forum-header {
+            background-color: var(--p-700);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .forum-body {
+            padding: 40px;
+            text-align: center;
+        }
+
+        .stats-preview {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--p-700);
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: var(--p-400);
+            letter-spacing: 1px;
+        }
+
+        .btn-forum {
+            background-color: var(--p-700);
+            color: white;
+            border-radius: 50px;
+            padding: 12px 40px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: 0.3s;
+            display: inline-block;
+        }
+
+        .btn-forum:hover {
+            background-color: var(--p-400);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .badge-soon {
+            background-color: #FFD700;
+            color: #000;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="forum-card">
+        <div class="forum-header">
+            <i class="bi bi-chat-left-dots fs-1 mb-3"></i>
+            <h2>Photography Reviewed Forum</h2>
+            <p class="mb-0 opacity-75">Connect, share, and learn with fellow enthusiasts.</p>
+        </div>
+
+        <div class="forum-body">
+            <span class="badge-soon">UNDER CONSTRUCTION</span>
+            <h3 class="fw-bold mb-3">The Community is Brewing</h3>
+            <p class="text-muted mb-5">We're currently setting up the boards for Camera Brands, Lens Talk, and Post-Processing. Soon you'll be able to join the conversation.</p>
+            
+            <div class="stats-preview">
+                <div class="stat-item">
+                    <span class="stat-value">0</span>
+                    <span class="stat-label">Threads</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">0</span>
+                    <span class="stat-label">Members</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">∞</span>
+                    <span class="stat-label">Potential</span>
+                </div>
+            </div>
+
+            <a href="index.html" class="btn-forum">
+                <i class="bi bi-house-door me-2"></i> Return to Site
+            </a>
+        </div>
+    </div>
+</body>
+</html>

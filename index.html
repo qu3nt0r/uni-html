@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photography Reviewed</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <style>
+        :root {
+            /* PRIMARY */
+            --p-100: #EEF1F6; --p-200: #C5CEDF; --p-300: #96A8C6; --p-400: #6F82A1;
+            --p-500: #505F76; --p-600: #333D4D; --p-700: #181E28;
+            /* SECONDARY */
+            --s-100: #E3E7EF; --s-500: #455265; --s-700: #0F131A;
+            /* GREY */
+            --g-100: #F0F1F1; --g-200: #CCCDD0; --g-400: #7F8187; --g-700: #1D1E1F;
+            
+            /* Layout Constants */
+            --header-bg: var(--p-700);
+            --card-bg: var(--p-100);
+        }
+
+        body { background-color: white; color: var(--g-700); font-family: sans-serif; }
+
+        /* HEADER & NAV */
+        .navbar-custom { background-color: var(--header-bg); padding: 0rem 1rem;}
+        .search-bar { background-color: var(--s-100); border: none; border-radius: 50px; padding-left: 2.5rem; width: 450px; }
+        .dropdown-menu { background-color: var(--p-100); border-radius: 12px; border: none; box-shadow: 0 4px 15px rgba(0,0,0,0.1);  min-width: 200px;}
+        .dropdown-item { display: flex; justify-content: space-between; align-items: center; padding: 0.6rem 1rem; color: var(--p-700); font-weight: 500; }
+        .dropdown-item:hover { background-color: var(--p-200); }
+        /* Submenu positioning - Pushed to the LEFT */
+        .dropdown-submenu {
+            position: relative;
+        }
+
+        .dropdown-submenu .dropdown-menu {
+            top: 0;
+            left: auto;
+            right: 95%; /* This forces the menu to open to the left */
+            margin-right: 0.5rem; /* Small gap between menus */
+            margin-top: -1px;
+            display: none;
+            background-color: var(--p-100); /* Primary 600 */
+            min-width: 200px;
+            border-radius: 8px;
+        }
+
+        /* Ensure icons and text are white in the dark submenu */
+        .dropdown-submenu .dropdown-menu .dropdown-item {
+            color: rgb(0, 0, 0) !important;
+        }
+
+        .dropdown-submenu:hover > .dropdown-menu {
+            display: block;
+        }
+
+        /* Add a small arrow pointing left to indicate a submenu exists */
+        .dropdown-submenu > .dropdown-item::before {
+            display: inline-block;
+            content: "◀"; /* Left arrow as per your image */
+            font-size: 0.6rem;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
+        /* HERO */
+        .hero-section { height: 600px; background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.5)), url('https://images.pexels.com/photos/346529/pexels-photo-346529.jpeg?cs=srgb&dl=pexels-bri-schneiter-28802-346529.jpg&fm=jpg') top/cover; display: flex; align-items: center; justify-content: center; color: rgba(255, 255, 255, 0.90); }
+
+        /* CAROUSEL (Popular) */
+        .popular-carousel .carousel-item { padding: 20px 0; }
+        .carousel-card-popular { 
+            width: 1160px; height: 500px; 
+            background: var(--p-100); 
+            margin: 0 auto; 
+            border-radius: 20px; 
+            display: flex; align-items: center; padding: 40px;
+        }
+        .popular-img { width: 400px; height: 400px; object-fit: contain; background: white; border-radius: 15px; padding: 20px; }
+        .custom-indicators [data-bs-target] { width: 12px; height: 12px; border-radius: 50%; background-color: var(--g-200); border: none; }
+        .custom-indicators .active { background-color: var(--g-400); }
+
+        /* RECOMMENDATIONS */
+        .rec-card { width: 410px; height: 550px; background: var(--p-100); border-radius: 15px; border: none; transition: transform 0.3s; padding: 20px; text-decoration: none;}
+        .rec-img { width: 350px; height: 300px; object-fit: contain; background: white; border-radius: 8px; padding: 10px; align-self: center; margin-bottom: 15px; margin-top: 10px;}
+        .rec-card:hover { transform: translateY(-10px); }
+
+        /* REVIEWS (Small Cards) */
+        .review-card { 
+            width: 265px; height: 350px; 
+            background: var(--p-100); 
+            border-radius: 12px; 
+            border: none; 
+            text-decoration: none; 
+            color: inherit; 
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            transition: 0.3s;
+        }
+        .review-card:hover { background-color: var(--p-200); transform: scale(1.02); }
+        .review-card img { height: 220px; width: 220px; object-fit: contain; background: white; border-radius: 8px; margin-bottom: 15px; margin-top: -25px; }
+
+        /* FOOTER */
+        footer { background-color: var(--p-700); color: white; padding: 60px 0; }
+        footer h6 { color: var(--p-200); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; }
+        footer a { color: white; text-decoration: none; font-size: 0.9rem; }
+
+        /* 1. Allow the cards to bleed to the edge of the screen */
+        .full-width-container {
+            padding-left: 5%; /* Aligns the first card with your logo/header text */
+            padding-right: 0;
+            overflow: visible !important;
+            justify-content: center;
+        }
+
+        /* Horizontal Scroll Container Styling */
+        .scroll-wrapper {
+            display: flex;
+            overflow-x: auto;
+            overflow-y: visible;
+            gap: 1.5rem;
+            padding: 20px 0;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+        .scroll-wrapper::-webkit-scrollbar {
+            display: none;
+        }
+        .scroll-wrapper::-webkit-scrollbar-track {
+            background: var(--p-100);
+            border-radius: 10px;
+        }
+        .scroll-wrapper::-webkit-scrollbar-thumb {
+            background: var(--p-300);
+            border-radius: 10px;
+        }
+        .scroll-wrapper .review-card {
+            flex: 0 0 auto;
+            scroll-snap-align: start;
+            width: 265px; /* Matches your specific width */
+            height: 350px; /* Matches your specific height */
+        }
+
+        /* Interactable Section Headers */
+        .section-link {
+            text-decoration: none;
+            color: var(--p-700);
+            transition: color 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+        }
+        .section-link:hover {
+            color: var(--p-400);
+        }
+        .section-link i {
+            margin-left: 10px;
+            transition: transform 0.3s;
+        }
+        .section-link:hover i {
+            transform: translateX(8px);
+        }
+
+        h6 {
+            font-weight: 600;
+            padding-inline: 25px;
+        }
+
+        
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark navbar-custom sticky-top">
+    <div class="container-fluid">
+        <a class="navbar-brand d-flex align-items-center" href="#">
+            <img src="Website Logo.svg" alt="Photography Reviewed Logo"> 
+        </a>
+
+        <div class="position-relative d-none d-lg-block">
+            <i class="bi bi-search position-absolute top-50 start-0 translate-middle-y ms-3 text-secondary"></i>
+            <input type="text" class="form-control search-bar" placeholder="Search for specific models">
+        </div>
+
+        <div class="d-flex align-items-center ms-auto">
+            <div class="dropdown me-3">
+                <a class="nav-link dropdown-toggle text-white" href="#" data-bs-toggle="dropdown">Languages</a>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="#">English <i class="bi bi-translate"></i></a></li>
+                    <li><a class="dropdown-item" href="#">Khmer <i class="bi bi-translate"></i></a></li>
+                </ul>
+            </div>
+            <a href="forum.html" class="nav-link text-white me-3">Forum</a>
+            <div class="dropdown me-3">
+                <a class="nav-link dropdown-toggle text-white" href="#" data-bs-toggle="dropdown">Menu</a>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li class="dropdown-submenu">
+                        <a class="dropdown-item" href="#">Camera Brands <i class="bi bi-camera"></i></a>
+                        <ul class="dropdown-menu shadow">
+                            <li><a class="dropdown-item text-white" href="web-in-progress.html">Sony <i class="bi bi-camera"></i></a></li>
+                            <li><a class="dropdown-item text-white" href="web-in-progress.html">Fujifilm <i class="bi bi-camera"></i></a></li>
+                            <li><a class="dropdown-item text-white" href="web-in-progress.html">Canon <i class="bi bi-camera"></i></a></li>
+                            <li><a class="dropdown-item text-white" href="web-in-progress.html">Nikon <i class="bi bi-camera"></i></a></li>
+                            <li><a class="dropdown-item text-white" href="web-in-progress.html">Panasonic <i class="bi bi-camera"></i></a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown-submenu">
+                        <a class="dropdown-item" href="#">Camera Lens <i class="bi bi-record-circle"></i></a>
+                        <ul class="dropdown-menu shadow">
+                            <li><a class="dropdown-item text-white" href="web-in-progress.html">≤ 20 mm <i class="bi bi-clock"></i></a></li>
+                            <li><a class="dropdown-item text-white" href="web-in-progress.html">21-28 mm <i class="bi bi-clock"></i></a></li>
+                            <li><a class="dropdown-item text-white" href="web-in-progress.html">29-50 mm <i class="bi bi-clock"></i></a></li>
+                            <li><a class="dropdown-item text-white" href="web-in-progress.html">51-100 mm <i class="bi bi-clock"></i></a></li>
+                            <li><a class="dropdown-item text-white" href="web-in-progress.html">101-300 mm <i class="bi bi-clock"></i></a></li>
+                            <li><a class="dropdown-item text-white" href="web-in-progress.html">300 mm+ <i class="bi bi-clock"></i></a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown-submenu">
+                        <a class="dropdown-item" href="#">Video <i class="bi bi-camera-video"></i></a>
+                        <ul class="dropdown-menu shadow">
+                            <li><a class="dropdown-item text-white" href="web-in-progress.html">Video Cameras <i class="bi bi-camera-video"></i></a></li>
+                            <li><a class="dropdown-item text-white" href="web-in-progress.html">Pro Video <i class="bi bi-camera-video"></i></a></li>
+                            <li><a class="dropdown-item text-white" href="web-in-progress.html">Cinema Camera <i class="bi bi-camera-video"></i></a></li>
+                            <li><a class="dropdown-item text-white" href="web-in-progress.html">Action / Vlogging <i class="bi bi-camera-video"></i></a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown-submenu">
+                        <a class="dropdown-item" href="#">Lighting <i class="bi bi-brightness-high"></i></a>
+                        <ul class="dropdown-menu shadow">
+                            <li><a class="dropdown-item text-white" href="web-in-progress.html">Continuous Lighting <i class="bi bi-brightness-high"></i></a></li>
+                            <li><a class="dropdown-item text-white" href="web-in-progress.html">Flash / Strobes <i class="bi bi-brightness-high"></i></a></li>
+                            <li><a class="dropdown-item text-white" href="web-in-progress.html">Modifiers <i class="bi bi-brightness-high"></i></a></li>
+                            <li><a class="dropdown-item text-white" href="web-in-progress.html">Light Supports <i class="bi bi-brightness-high"></i></a></li>
+                            <li><a class="dropdown-item text-white" href="web-in-progress.html">Power & Accessories <i class="bi bi-brightness-high"></i></a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown-submenu">
+                        <a class="dropdown-item" href="#">Audio <i class="bi bi-mic"></i></a>
+                        <ul class="dropdown-menu shadow">
+                            <li><a class="dropdown-item text-white" href="web-in-progress.html">Microphones <i class="bi bi-mic"></i></a></li>
+                            <li><a class="dropdown-item text-white" href="web-in-progress.html">Wireless Audio <i class="bi bi-mic"></i></a></li>
+                            <li><a class="dropdown-item text-white" href="web-in-progress.html">Recorders & Mixers <i class="bi bi-mic"></i></a></li>
+                            <li><a class="dropdown-item text-white" href="web-in-progress.html">Monitoring <i class="bi bi-mic"></i></a></li>
+                            <li><a class="dropdown-item text-white" href="web-in-progress.html">Mounts & Accessories <i class="bi bi-mic"></i></a></li>
+                        </ul>
+                    </li>
+
+                    <li><a class="dropdown-item" href="#">Other Peripherals <i class="bi bi-three-dots"></i></a></li>
+                </ul>
+            </div>
+            <div class="dropdown">
+                <a class="nav-link text-white" href="#" data-bs-toggle="dropdown"><i class="bi bi-person-circle fs-3"></i></a>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="web-in-progress.html">Profile <i class="bi bi-person"></i></a></li>
+                    <li><a class="dropdown-item" href="web-in-progress.html">Settings <i class="bi bi-gear"></i></a></li>
+                    <li><a class="dropdown-item" href="web-in-progress.html">Favorites <i class="bi bi-heart"></i></a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="web-in-progress.html">Login <i class="bi bi-box-arrow-in-right"></i></a></li>
+                    <li><a class="dropdown-item" href="web-in-progress.html">Register <i class="bi bi-person-plus"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<section class="hero-section">
+    <h1 class="display-3 text-center">All your Photography Knowledge<br>In One Place</h1>
+</section>
+
+<section class="py-5 overflow-hidden">
+    <h2 class="text-center mb-5 fw-bold" style="font-family: serif; font-size: 2.5rem;">This Month's Most Popular</h2>
+    <div id="popCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner overflow-visible">
+            <div class="carousel-item active">
+                <div class="carousel-card-popular">
+                    <div class="text-center me-4">
+                        <h4 class="mb-3 fw-bold">Best Quality</h4>
+                        <a href="web-in-progress.html"><img src="https://shashinki.com/shop/getimage/products/cn-er5m2.jpg" class="popular-img"></a>
+                    </div>
+                    <div class="mt-3">
+                        <h3 class="fw-bold">Canon EOS R5 Mark II</h3>
+                        <ul class="mt-3">
+                            <li>High-resolution full-frame sensor (45 MP) offering stunning detail and dynamic range.</li>
+                            <li>8K/60p video & 4K/120p unmatched hybrid camera performance.</li>
+                            <li>Advanced Dual Pixel autofocus II with intelligent tracking & Eye Control AF.</li>
+                            <li>Professional performance in both stills and video production workflows.</li>
+                            <li>Durable weather-sealed body for demanding conditions.</li>
+                            <li>Excellent lens ecosystem via RF mount with top-tier optics.</li>
+                            <li>In-body image stabilization up to ~8.5 stops with compatible lenses.</li>
+                            <li>High-speed continuous shooting with responsive buffer handling.</li>
+                            <li>Pro-grade video tools (Canon Log 3, 10-bit 4:2:2) for serious filmmakers.</li>
+                            <li>Consistently rated among the best hybrid cameras in 2025.</li>
+                        </ul>
+                        <p class="mt-3">This camera is a top choice for professionals and enthusiasts alike, combining exceptional image quality with advanced features.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="carousel-card-popular">
+                    <div class="text-center me-4">
+                        <h4 class="mb-3 fw-bold">Best Value</h4>
+                        <a href="web-in-progress.html"><img src="https://www.bhphotovideo.com/cdn-cgi/image/fit%3Dscale-down%2Cwidth%3D500%2Cquality%3D95/https%3A//www.bhphotovideo.com/images/images500x500/nikon_1784_z50_ii_mirrorless_camera_1730933446_1860621.jpg" class="popular-img"></a>
+                    </div>
+                    <div class="mt-3">
+                        <h3 class="fw-bold">Nikon Z50 II</h3>
+                        <ul class="mt-3">
+                            <li>Balanced performance & price — strong features for both photo and video without breaking the bank. </li>
+                            <li>Versatile APS-C sensor ideal for everyday shooting, travel, portraits, and landscapes.</li>
+                            <li>Fast autofocus with good subject tracking for action and people.</li>
+                            <li>4K video capability makes it solid for hybrid creators (photo + video).</li>
+                            <li>Lightweight and compact for portability, great for daily carry.</li>
+                            <li>Good lens ecosystem with Nikon Z mount options growing steadily.</li>
+                            <li>User-friendly menus make it approachable for newcomers evolving into more serious shooters.</li>
+                            <li>Value compared to its specs (shared often in 2025 midrange camera guides).</li>
+                            <li>Kit options often include zoom lenses that cover a wide range.</li>
+                            <li>Price-performance leader in the prosumer APS-C class.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="carousel-card-popular">
+                    <div class="text-center me-4">
+                        <h4 class="mb-3 fw-bold">For Beginners</h4>
+                        <a href="web-in-progress.html"><img src="https://m.media-amazon.com/images/I/61TyCpcEVCL._AC_UF894%2C1000_QL80_.jpg" class="popular-img"></a>
+                    </div>
+                    <div class="mt-3">
+                        <h3 class="fw-bold"> Canon EOS R10</h3>
+                        <ul class="mt-3">
+                            <li>Easy to use menus and controls perfect for new photographers.</li>
+                            <li>Strong autofocus and fast shooting even for novices. </li>
+                            <li>Uncropped 4K video great for creators starting out. </li>
+                            <li>Good image quality from APS-C sensor without overwhelming settings.</li>
+                            <li>Lightweight and compact easy to carry and learn with.</li>
+                            <li>Guided modes help beginners understand photography basics.</li>
+                            <li>Excellent value price-to-performance in its class.</li>
+                            <li>Great kit lens options offer flexible shooting right out of the box.</li>
+                            <li>Room to grow with Canon RF lenses and features.</li>
+                            <li>Versatile everyday camera landscape, portraits, street, travel.</li>
+                        </ul>
+                        <p class="mt-3">The Canon EOS R10 is frequently cited as one of the top choices for beginners in 2025, offering an excellent mix of features, ease of use, and affordability.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-indicators custom-indicators position-relative mt-4">
+            <button type="button" data-bs-target="#popCarousel" data-bs-slide-to="0" class="active"></button>
+            <button type="button" data-bs-target="#popCarousel" data-bs-slide-to="1"></button>
+            <button type="button" data-bs-target="#popCarousel" data-bs-slide-to="2"></button>
+        </div>
+    </div>
+</section>
+
+<section class="container-fluid py-5 bg-light">
+    <h2 class="text-center mb-5 fw-bold" style="font-family: serif; font-size: 2.5rem;">Our Recommendations</h2>
+    <div class="d-flex justify-content-center gap-5">
+        <a href="web-in-progress.html" class="card rec-card">
+            <img src="https://www.bhphotovideo.com/images/fb/sony_a1_ii_mirrorless_camera_1861705.jpg" class="rec-img">
+            <h4 class="fw-bold">Sony Alpha a1 II</h4>
+            <ul class="small text-muted">
+                <li>High resolution + high speed: Fantastic for wildlife, sports, studio, and landscapes.</li>
+                <li>Excellent video specs, strong EVF, and Sony's trusted autofocus system.</li>
+                <li>Premium performance with fast data handling and strong build quality.</li>
+            </ul>
+        </a>
+        <a href="web-in-progress.html" class="card rec-card">
+            <img src="https://shashinki.com/shop/getimage/products/cn-er5m2.jpg" class="rec-img">
+            <h4 class="fw-bold">Canon EOS R5 Mark II</h4>
+            <ul class="small text-muted">
+                <li>Excellent balance of high-resolution stills (45 MP) and pro video (8K/60 fps and 4K/120 fps)</li>
+                <li>Advanced autofocus with Eye Control AF and fast continuous shooting </li>
+                <li>Great ergonomics and robust build with weather sealing.</li>
+            </ul>
+        </a>
+        <a href="web-in-progress.html" class="card rec-card">
+            <img src="https://fujifilmshop.com/files/urunler/x-t5/gumus/xt5-1.png" class="rec-img">
+            <h4 class="fw-bold">Fujifilm X-T5</h4>
+            <ul class="small text-muted">
+                <li>Fantastic image quality and Fujifilm color science in a compact body.</li>
+                <li>Excellent for stills and capable video specs.</li>
+                <li>Retro style with intuitive dials appeals to photographers who love a tactile experience.</li>
+            </ul>
+        </a>
+    </div>
+</section>
+
+<section class="container-fluid py-5">
+    <h2 class="text-center mb-5 fw-bold" style="font-family: serif; font-size: 2.5rem;">All Our Reviews</h2>
+    
+    <!-- Cameras -->
+    <div class="container mt-5 px-0">
+        <a href="web-in-progress.html" class="section-link">
+            <h4 class="mb-0">All Cameras</h4>
+            <i class="bi bi-arrow-right-circle fs-4"></i>
+        </a>
+    </div>
+    <div class="container-fluid px-0">
+        <div class="scroll-wrapper">
+            <a href="web-in-progress.html" class="review-card shadow-sm"><img src="https://bermorzone.com.ph/wp-content/uploads/2022/01/81XeVWWyUUL._AC_SL1500_-1.jpg"><h6>Sony Alpha a6400</h6></a>
+            <a href="web-in-progress.html" class="review-card shadow-sm"><img src="https://shashinki.com/shop/getimage/products/cn-er5m2.jpg"><h6>Canon EOS R5</h6></a>
+            <a href="web-in-progress.html" class="review-card shadow-sm"><img src="https://fujifilmshop.com/files/urunler/x-t5/gumus/xt5-1.png"><h6>Fujifilm X-T5</h6></a>
+            <a href="web-in-progress.html" class="review-card shadow-sm"><img src="https://hashmiphotos.com/wp-content/uploads/2021/11/Nikon-Z9-in-Karachi.jpg"><h6>Nikon Z9</h6></a>
+            <a href="web-in-progress.html" class="review-card shadow-sm"><img src="https://powerkiteshop.com/cdn/shop/products/gopro-hero-12-black-powerkiteshop-1.jpg?v=1713897521"><h6>GoPro HERO12 Black</h6></a>
+            <a href="web-in-progress.html" class="review-card shadow-sm"><img src="https://www.promoviemaker.net/wp-content/uploads/2019/02/k2_items_src_5709ab37f70d899bd3794356bcaad57a.jpg"><h6>Blackmagic Pocket Cinema Camera 4K</h6></a>
+            <a href="web-in-progress.html" class="review-card shadow-sm"><img src="https://www.glazerscamera.com/cdn/shop/files/95256_01_Hero_1200x1200.png?v=1690674711"><h6>DJI Osmo Action 4</h6></a>
+        </div>
+    </div>
+
+    <!-- Lenses -->
+    <div class="container mt-5 px-0">
+        <a href="web-in-progress.html" class="section-link">
+            <h4 class="mb-0">Camera Lens</h4>
+            <i class="bi bi-arrow-right-circle fs-4"></i>
+        </a>
+    </div>
+    <div class="container-fluid px-0">
+        <div class="scroll-wrapper">
+            <a href="web-in-progress.html" class="review-card shadow-sm"><img src="https://cdn11.bigcommerce.com/s-fc1fc/products/36499/images/125588/1566949680_1502500__22604.1567122772.500.750.jpg?c=2"><h6>Canon RF 24-70mm f/2.8L IS USM</h6></a>
+            <a href="web-in-progress.html" class="review-card shadow-sm"><img src="https://aabworld.com/media/catalog/product/cache/237ef60c9f2fe0eb30d3cc363694a887/1/4/1454496359_1222774.jpg"><h6>Sony FE 24-70mm f/2.8 GM II A</h6></a>
+            <a href="web-in-progress.html" class="review-card shadow-sm"><img src="https://www.backscatter.com/ITEM_IMAGES/nkl-20089_1.jpg"><h6>Nikon Z 24-70mm f/2.8 S</h6></a>
+            <a href="web-in-progress.html" class="review-card shadow-sm"><img src="https://www.laorlaorcamerashop.com/Content/Upload/ItemImage/fd3dcb55-dce9-4e2b-a8bc-acf0a2433e26.jpg"><h6>Sony FE 70-200mm f/2.8 GM OSS II</h6></a>
+            <a href="web-in-progress.html" class="review-card shadow-sm"><img src="https://m.media-amazon.com/images/I/71gxjKUV6JL.jpg"><h6>Canon RF 50mm f/1.2L USM</h6></a>
+            <a href="web-in-progress.html" class="review-card shadow-sm"><img src="https://www.wexphotovideo.com/globalassets/product-images/1584000/1584428.jpg?ver=638832442990000000"><h6>Fujifilm XF 35mm f/2 R WR A</h6></a>
+            <a href="web-in-progress.html" class="review-card shadow-sm"><img src="https://www.laorlaorcamerashop.com/Content/Upload/ItemImage/088d5915-5c91-43c7-90b7-a14d4478880a.jpg"><h6>TTArtisan 27mm f/2.8 FX mount (For Fujifilm)</h6></a>
+        </div>
+    </div>
+
+    <!-- Lighting -->
+    <div class="container mt-5 px-0">
+        <a href="web-in-progress.html" class="section-link">
+            <h4 class="mb-0">Lighting</h4>
+            <i class="bi bi-arrow-right-circle fs-4"></i>
+        </a>
+    </div>
+    <div class="container-fluid px-0">
+            <div class="scroll-wrapper">
+                <a href="web-in-progress.html" class="review-card shadow-sm"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdN_VFpdZPLd0U1mOId8iRnR7A0mjWHlQ_fA&s"><h6>Godox V1 Flash (Speedlight)</h6></a>
+                <a href="web-in-progress.html" class="review-card shadow-sm"><img src="https://dtz3um9jw7ngl.cloudfront.net/p/l/P353030N/P353030N.jpg"><h6>Profoto A10</h6></a>
+                <a href="web-in-progress.html" class="review-card shadow-sm"><img src="https://cuesale.com/wp-content/uploads/2024/06/neewer-rl-18-led-3-600x600.jpg"><h6>Neewer 18-inch LED Ring Light</h6></a>
+                <a href="web-in-progress.html" class="review-card shadow-sm"><img src="https://www.laorlaorcamerashop.com/Content/Upload/ItemImage/55ae3f0f-e863-4cac-9379-cdd94282d922.jpg"><h6>Nanlite Pavotube II 6C</h6></a>
+                <a href="web-in-progress.html" class="review-card shadow-sm"><img src="https://www.klasfoto.com.tr/shop/rc/57/myassets/products/687/pr_01_24687.jpg?revision=1697143329"><h6>Elinchrom Ranger Quadra</h6></a>
+                <a href="web-in-progress.html" class="review-card shadow-sm"><img src="https://www.wexphotovideo.com/globalassets/product-images/1723000/1723387.jpg?ver=637666041200000000"><h6>Aputure MC RGBWW LED Light</h6></a>
+                <a href="web-in-progress.html" class="review-card shadow-sm"><img src="https://www.fjwestcott.com/cdn/shop/files/5700-Angle-Left-Scaled.jpg?v=1738342964"><h6>Westcott FJ400 Strobe</h6></a>
+            </div>
+        </div>
+
+    <!-- Gears & Peripherals -->
+    <div class="container mt-5 px-0">
+        <a href="web-in-progress.html" class="section-link">
+            <h4 class="mb-0">All Gears & Peripherals</h4>
+            <i class="bi bi-arrow-right-circle fs-4"></i>
+        </a>
+    </div>
+    <div class="container-fluid px-0">
+        <div class="scroll-wrapper">
+            <a href="web-in-progress.html" class="review-card shadow-sm"><img src="https://www.laorlaorcamerashop.com/Content/Upload/ItemImage/cb3b39f4-3ad7-489c-b1a1-6e45282368e2.jpg"><h6>DJI RS 4 Pro Gimbal</h6></a>
+            <a href="web-in-progress.html" class="review-card shadow-sm"><img src="https://cdn.shopify.com/s/files/1/2986/1172/files/everyday-backpack-black-20-1.jpg?v=1762275581"><h6>Peak Design Everyday Backpack (20L)</h6></a>
+            <a href="web-in-progress.html" class="review-card shadow-sm"><img src="https://i5.walmartimages.com/seo/Manfrotto-Befree-Advanced-Travel-Tripod-with-Ball-Head-Red_e30a6221-3984-464e-a15b-fabb6d49d0ae.139b018993963a33ff7b06c8e7fe446b.jpeg"><h6>Manfrotto BeFree Advanced Travel Tripod</h6></a>
+            <a href="web-in-progress.html" class="review-card shadow-sm"><img src="https://shop.sandisk.com/content/dam/store/en-us/assets/products/memory-cards/extreme-pro-cfexpress-type-b/gallery/extreme-pro-cfexpress-type-b-128gb-left.png.thumb.1280.1280.png"><h6>SanDisk Extreme Pro CFexpress Type B Card</h6></a>
+            <a href="web-in-progress.html" class="review-card shadow-sm"><img src="https://cdn.shopify.com/s/files/1/2986/1172/files/1-LIGHTBOX-1024x1024-SLIDELITE-BLACK-01.jpg?v=1762275873"><h6>Peak Design Slide Lite Camera Strap</h6></a>
+            <a href="web-in-progress.html" class="review-card shadow-sm"><img src="https://www.laorlaorcamerashop.com/Content/Upload/ItemImage/25c60cea-5eb7-4571-930f-7381b8bd6e48.jpg"><h6>Samsung T7 Shield Portable SSD 2TB</h6></a>
+            <a href="web-in-progress.html" class="review-card shadow-sm"><img src="https://tiffen.com/cdn/shop/products/VND_1.png?v=1569442460"><h6>Tiffen Variable ND Filter</h6></a>
+        </div>
+    </div>
+</section>
+
+<footer class="py-5 px-5 mt-5">
+    <div class="container-fluid text-center">
+        <div class="row g-4 justify-content-center">
+            <div class="col-md-4">
+                <h6 class="fw-bold mb-3">Contact Us</h6>
+                <div class="d-flex flex-column align-items-left gap-2">
+                    <a href="mailto:support@photoreviewed.com" class="small">
+                        <i class="bi bi-envelope me-2"></i> support@photoreviewed.com
+                    </a>
+                    <a href="tel:+1555245678" class="small">
+                        <i class="bi bi-telephone me-2"></i> +1 (555) 245-678
+                    </a>
+                    <a href="https://web.telegram.org/k/" class="small">
+                        <i class="bi bi-telegram me-2"></i> Telegram
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <h6 class="fw-bold mb-3">Follow Us</h6>
+                <div class="d-flex flex-column align-items-center gap-2">
+                    <a href="https://web.facebook.com"><i class="bi bi-facebook me-2"></i> Facebook</a>
+                    <a href="https://www.instagram.com"><i class="bi bi-instagram me-2"></i> Instagram</a>
+                    <a href="https://www.tiktok.com/en/"><i class="bi bi-tiktok me-2"></i> TikTok</a>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <h6 class="fw-bold mb-3">Have Any Questions?</h6>
+                <div class="d-flex flex-column align-items-center gap-2">
+                    <a href="forum.html">Visit our Forum</a>
+                    <a href="web-in-progress.html">About Us</a>
+                    <a href="web-in-progress.html">Our Story</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mt-5 pt-4 border-top border-secondary opacity-50 small">
+            &copy; 2025 Photography Reviewed. All rights reserved. <br>Build by Ren Ridadona & Tola Somethea (Emotional support).
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

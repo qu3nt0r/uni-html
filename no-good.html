@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap Custom Palette</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        :root {
+            /* 1. OVERRIDE CORE BOOTSTRAP COLORS (Using the 500 shades) */
+            --bs-primary: #505F76;
+            --bs-primary-rgb: 80, 95, 118;
+            --bs-secondary: #455265;
+            --bs-secondary-rgb: 69, 82, 101;
+            
+            /* 2. CUSTOM TERTIARY COLOR (Since Bootstrap doesn't have one by default) */
+            --custom-tertiary: #3D495C;
+        }
+
+        /* 3. GENERATED UTILITY CLASSES (100-700) */
+        
+        /* Primary Shades */
+        .bg-primary-100 { background-color: #EEF1F6 !important; }
+        .bg-primary-200 { background-color: #C5CEDF !important; }
+        .bg-primary-300 { background-color: #96A8C6 !important; }
+        .bg-primary-400 { background-color: #6F82A1 !important; }
+        .bg-primary-500 { background-color: #505F76 !important; }
+        .bg-primary-600 { background-color: #333D4D !important; }
+        .bg-primary-700 { background-color: #181E28 !important; }
+
+        .text-primary-700 { color: #181E28 !important; }
+        .text-primary-100 { color: #EEF1F6 !important; }
+
+        /* Secondary Shades */
+        .bg-secondary-100 { background-color: #E3E7EF !important; }
+        .bg-secondary-200 { background-color: #B4BFD5 !important; }
+        .bg-secondary-300 { background-color: #859ABB !important; }
+        .bg-secondary-400 { background-color: #647590 !important; }
+        .bg-secondary-500 { background-color: #455265 !important; }
+        .bg-secondary-600 { background-color: #29313E !important; }
+        .bg-secondary-700 { background-color: #0F131A !important; }
+
+        /* Tertiary Shades */
+        .bg-tertiary-100 { background-color: #D6DDE9 !important; }
+        .bg-tertiary-200 { background-color: #A7B6D0 !important; }
+        .bg-tertiary-300 { background-color: #7A90B3 !important; }
+        .bg-tertiary-400 { background-color: #5B6B86 !important; }
+        .bg-tertiary-500 { background-color: #3D495C !important; }
+        .bg-tertiary-600 { background-color: #222935 !important; }
+        .bg-tertiary-700 { background-color: #0D1118 !important; }
+
+        .btn-tertiary { 
+            background-color: var(--custom-tertiary); 
+            color: white; 
+            border: none;
+        }
+        .btn-tertiary:hover { 
+            background-color: #222935; /* Tertiary 600 */
+            color: white;
+        }
+
+        /* Grey Shades */
+        .bg-grey-100 { background-color: #F0F1F1 !important; }
+        .bg-grey-200 { background-color: #CCCDD0 !important; }
+        .bg-grey-300 { background-color: #A5A6AB !important; }
+        .bg-grey-400 { background-color: #7F8187 !important; }
+        .bg-grey-500 { background-color: #5C5D62 !important; }
+        .bg-grey-600 { background-color: #3B3C3F !important; }
+        .bg-grey-700 { background-color: #1D1E1F !important; }
+
+        .text-grey-600 { color: #3B3C3F !important; }
+
+        /* Navbar Styling */
+        .navbar-custom {
+            background-color: var(--brand-bg);
+            padding: 0.75rem 1.5rem;
+        }
+
+        .navbar-brand img { height: 40px; }
+        
+        /* Search Bar */
+        .search-container {
+            max-width: 500px;
+            width: 100%;
+            position: absolute;
+        }
+        .search-bar {
+            background-color: var(--search-bg);
+            border: none;
+            border-radius: 50px;
+            padding-left: 2.5rem;
+        }
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #647590;
+        }
+
+        /* Dropdown Styling (Matches Image 1) */
+        .dropdown-menu {
+            background-color: var(--brand-light-bg);
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            min-width: 200px;
+            padding: 8px;
+        }
+
+        .dropdown-item {
+            border-radius: 8px;
+            color: var(--brand-text-dark);
+            font-weight: 500;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+        }
+
+        .dropdown-item:hover {
+            background-color: #C5CEDF; /* Primary 200 */
+        }
+
+        .dropdown-item i {
+            font-size: 1.1rem;
+            margin-left: 10px;
+        }
+
+        /* Nav Links */
+        .nav-link {
+            color: white !important;
+            font-weight: 500;
+            margin-left: 1rem;
+        }
+        
+        .profile-icon {
+            font-size: 1.5rem;
+        }
+
+        /* Carousel Item Width and Peek Effect */
+        .custom-carousel-card {
+            width: 85%; /* Middle item takes up 85% width */
+            height: 475px;
+            transition: transform 0.5s ease;
+        }
+
+        /* Make sure items that are "out of frame" are still partially visible */
+        .carousel-inner {
+            display: flex;
+        }
+
+        .carousel-item {
+            margin-right: 0;
+            flex: 0 0 100%;
+            display: block;
+        }
+
+        /* Style the 3 little indicator buttons */
+        .custom-dot {
+            width: 12px !important;
+            height: 12px !important;
+            background-color: #CCCDD0 !important; /* Grey 200 */
+            border: none !important;
+            margin: 0 5px !important;
+            opacity: 1 !important;
+        }
+
+        .custom-dot.active {
+            background-color: #7F8187 !important; /* Grey 400 */
+        }
+
+        /* Clean up lists */
+        ul.small li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+
+<body class="bg-grey-100 p-5">
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom bg-primary-700">
+        <div class="container-fluid">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <i class="bi bi-camera-reels me-2 fs-3 text-white"></i>
+                <div class="lh-1">
+                    <span class="fw-bold d-block">Photography</span>
+                    <small class="text-uppercase fw-light" style="font-size: 0.7rem;">Reviewed</small>
+                </div>
+            </a>
+
+            <div class="mx-auto search-container d-none d-md-block">
+                <div class="position-relative">
+                    <i class="bi bi-search search-icon"></i>
+                    <input type="text" class="form-control search-bar bg-primary-100" placeholder="Search for specific models">
+                </div>
+            </div>
+
+            <div class="d-flex align-items-center">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 flex-row">
+                    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Languages</a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#">English <i class="bi bi-translate"></i></a></li>
+                            <li><a class="dropdown-item" href="#">Spanish <i class="bi bi-translate"></i></a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Forum</a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Menu</a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#">Camera Brands <i class="bi bi-camera"></i></a></li>
+                            <li><a class="dropdown-item" href="#">Camera Lens <i class="bi bi-record-circle"></i></a></li>
+                            <li><a class="dropdown-item" href="#">Video <i class="bi bi-camera-video"></i></a></li>
+                            <li><a class="dropdown-item" href="#">Lighting <i class="bi bi-brightness-high"></i></a></li>
+                            <li><a class="dropdown-item" href="#">Audio <i class="bi bi-mic"></i></a></li>
+                            <li><a class="dropdown-item" href="#">Other Peripherals <i class="bi bi-three-dots"></i></a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle ps-3" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-person-circle profile-icon"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#">My Profile <i class="bi bi-person"></i></a></li>
+                            <li><a class="dropdown-item" href="#">Settings <i class="bi bi-gear"></i></a></li>
+                            <li><a class="dropdown-item" href="#">Favorites <i class="bi bi-heart"></i></a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger" href="#">Logout <i class="bi bi-box-arrow-right"></i></a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="bg-white pb-5">
+    <!-- <div class="position-relative overflow-hidden mb-5">
+        <div class="bg-dark text-white text-center py-5" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('your-hero-image.jpg') center/cover; min-height: 400px; display: flex; align-items: center; justify-content: center;">
+            <h1 class="display-4 fw-normal px-3">All your Photography Knowledge <br> In One Place</h1>
+        </div>
+        <div class="bg-primary-300" style="height: 4px; width: 100%;"></div>
+    </div> -->
+
+    <div class="container-fluid px-0">
+        <h2 class="text-center mb-4 fw-bold" style="font-family: serif;">This Month’s Most Popular</h2>
+        
+        <div id="cameraCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner overflow-visible">
+                
+                <div class="carousel-item">
+                    <div class="custom-carousel-card mx-auto shadow-sm p-4 bg-grey-100 rounded-4">
+                        <div class="row align-items-center">
+                            <div class="col-md-5 text-center">
+                                <h4 class="fw-bold mb-3">Best Value</h4>
+                                <img src="nikon-z50.jpg" class="img-fluid rounded bg-white p-3" alt="Nikon Z50 II">
+                            </div>
+                            <div class="col-md-7">
+                                <h3 class="fw-bold">Nikon Z50 II</h3>
+                                <ul class="small text-secondary-700 mt-3">
+                                    <li>Balanced performance & price — strong features for both photo and video.</li>
+                                    <li>Versatile APS-C sensor ideal for everyday shooting and travel.</li>
+                                    <li>Fast autofocus with good subject tracking.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="carousel-item active">
+                    <div class="custom-carousel-card mx-auto shadow-sm p-4 bg-grey-100 rounded-4">
+                        <div class="row align-items-center">
+                            <div class="col-md-5 text-center">
+                                <h4 class="fw-bold mb-3">Best Quality</h4>
+                                <img src="canon-r5.jpg" class="img-fluid rounded bg-white p-3" alt="Canon EOS R5">
+                            </div>
+                            <div class="col-md-7">
+                                <h3 class="fw-bold">Canon EOS R5 Mark II</h3>
+                                <ul class="small text-secondary-700 mt-3">
+                                    <li>High-resolution full-frame sensor (45 MP) offering stunning detail.</li>
+                                    <li>8K/60p video & 4K/120p unmatched hybrid performance.</li>
+                                    <li>Professional performance in both stills and video workflows.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="carousel-item">
+                    <div class="custom-carousel-card mx-auto shadow-sm p-4 bg-grey-100 rounded-4">
+                        <div class="row align-items-center">
+                            <div class="col-md-5 text-center">
+                                <h4 class="fw-bold mb-3">For Beginners</h4>
+                                <img src="canon-r10.jpg" class="img-fluid rounded bg-white p-3" alt="Canon R10">
+                            </div>
+                            <div class="col-md-7">
+                                <h3 class="fw-bold">Canon EOS R10</h3>
+                                <ul class="small text-secondary-700 mt-3">
+                                    <li>Easy to use menus and controls perfect for new photographers.</li>
+                                    <li>Strong autofocus and fast shooting even for novices.</li>
+                                    <li>Lightweight and compact easy to carry and learn with.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="carousel-indicators position-relative mt-4">
+                <button type="button" data-bs-target="#cameraCarousel" data-bs-slide-to="0" class="active rounded-circle custom-dot" aria-current="true"></button>
+                <button type="button" data-bs-target="#cameraCarousel" data-bs-slide-to="1" class="rounded-circle custom-dot"></button>
+                <button type="button" data-bs-target="#cameraCarousel" data-bs-slide-to="2" class="rounded-circle custom-dot"></button>
+            </div>
+        </div>
+    </div>
+</main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
